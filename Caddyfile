@@ -34,5 +34,9 @@
 		}
 	}
 
-	reverse_proxy http://web:5000
+	handle {
+		root * /srv/stgts-for-web
+		try_files {path} /index.html
+		file_server
+	}
 }

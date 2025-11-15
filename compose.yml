@@ -70,6 +70,7 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./data/caddy-data:/data
       - ./data/caddy-config:/config
+      - ./stgts-for-web:/srv/stgts-for-web:ro
 
   # API server
   api:
@@ -100,12 +101,6 @@ services:
         source: ./Revolt.toml
         target: /Revolt.toml
     restart: always
-
-  # Web App
-  web:
-    image: ghcr.io/revoltchat/client:master
-    restart: always
-    env_file: .env.web
 
   # File server
   autumn:
