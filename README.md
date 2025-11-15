@@ -29,20 +29,12 @@ This repository contains configurations and instructions that can be used for de
 
 > [!NOTE]
 > This guide does not include working voice channels ([#138](https://github.com/revoltchat/self-hosted/pull/138#issuecomment-2762682655)). A [rework](https://github.com/revoltchat/backend/issues/313) is currently in progress.
-
-## Table of Contents
-
-- [Deployment](#deployment)
-- [Updating](#updating)
-- [Advanced Deployment](#advanced-deployment)
-- [Additional Notes](#additional-notes)
-  - [Custom Domain](#custom-domain)
-  - [Placing Behind Another Reverse-Proxy or Another Port](#placing-behind-another-reverse-proxy-or-another-port)
-  - [Insecurely Expose the Database](#insecurely-expose-the-database)
-  - [Mongo Compatibility](#mongo-compatibility)
-  - [Making Your Instance Invite-only](#making-your-instance-invite-only)
-- [Notices](#notices)
-- [Security Advisories](#security-advisories)
+>
+> [!IMPORTANT]
+> Caddy now serves the web frontend from `./stgts-for-web`. Build the Stoat client yourself (or copy a release build) and place the resulting static files in that folder before starting Docker.
+>
+> [!TIP]
+> The baseline configuration in this repository targets **https://www.stairwaytogray.chat**. Use that hostname (or pass your own to `generate_config.sh`) so `.env.web` and `Revolt.toml` are populated with the correct URLs.
 
 ## Deployment
 
@@ -141,15 +133,17 @@ apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docke
 Now, we can pull in the configuration for Stoat:
 
 ```bash
-git clone https://github.com/revoltchat/self-hosted stoat
+git clone https://github.com/stairmaster1/stgts-self-hosted stoat
 cd stoat
 ```
+Ensure `stgts-for-web` contains the compiled Stoat web client (e.g., copy your `dist` output into this directory) before running any containers.
 
 Generate a configuration file by running:
 
 ```bash
 chmod +x ./generate_config.sh
-./generate_config.sh your.domain
+./generate_config.sh www.stairwaytogray.chat
+# replace the argument if you want a different domain
 ```
 
 You can find [more options here](https://github.com/revoltchat/backend/blob/stable/crates/core/config/Revolt.toml), some noteworthy configuration options:
@@ -213,8 +207,14 @@ Prerequisites before continuing:
 Clone this repository.
 
 ```bash
-git clone https://github.com/revoltchat/self-hosted stoat
+git clone https://github.com/stairmaster1/stgts-self-hosted stoat
 cd stoat
+```
+Ensure `stgts-for-web` contains the compiled Stoat web client before starting Docker, then initialize configs for the default hostname (or override as needed):
+
+```bash
+chmod +x ./generate_config.sh
+./generate_config.sh www.stairwaytogray.chat
 ```
 
 Create `.env.web` and download `Revolt.toml`, then modify them according to your requirements.
