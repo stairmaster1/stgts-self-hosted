@@ -180,6 +180,8 @@ services:
 
   # Web client
   web:
-    image: ghcr.io/revoltchat/client:master
+    build:
+      context: ./stgts-for-web
+      dockerfile: Dockerfile
     restart: always
     env_file: .env.web
