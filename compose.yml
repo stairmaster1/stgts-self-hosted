@@ -70,7 +70,6 @@ services:
       - ./Caddyfile:/etc/caddy/Caddyfile
       - ./data/caddy-data:/data
       - ./data/caddy-config:/config
-      - ./stgts-for-web:/srv/stgts-for-web:ro
 
   # API server
   api:
@@ -178,3 +177,9 @@ services:
       /usr/bin/mc mb minio/revolt-uploads;
       exit 0;
       "
+
+  # Web client
+  web:
+    image: ghcr.io/revoltchat/client:master
+    restart: always
+    env_file: .env.web

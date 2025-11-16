@@ -34,7 +34,7 @@ This repository contains configurations and instructions that can be used for de
 > Caddy now serves the web frontend from `./stgts-for-web`. Build the Stoat client yourself (or copy a release build) and place the resulting static files in that folder before starting Docker.
 >
 > [!TIP]
-> The baseline configuration in this repository targets **https://www.stairwaytogray.chat**. Use that hostname (or pass your own to `generate_config.sh`) so `.env.web` and `Revolt.toml` are populated with the correct URLs.
+> The baseline configuration in this repository targets **https://www.stg.chat**. Use that hostname (or pass your own to `generate_config.sh`) so `.env.web` and `Revolt.toml` are populated with the correct URLs.
 
 ## Deployment
 
@@ -136,13 +136,12 @@ Now, we can pull in the configuration for Stoat:
 git clone https://github.com/stairmaster1/stgts-self-hosted stoat
 cd stoat
 ```
-Ensure `stgts-for-web` contains the compiled Stoat web client (e.g., copy your `dist` output into this directory) before running any containers.
 
 Generate a configuration file by running:
 
 ```bash
 chmod +x ./generate_config.sh
-./generate_config.sh www.stairwaytogray.chat
+./generate_config.sh www.stg.chat
 # replace the argument if you want a different domain
 ```
 
@@ -210,11 +209,12 @@ Clone this repository.
 git clone https://github.com/stairmaster1/stgts-self-hosted stoat
 cd stoat
 ```
+
 Ensure `stgts-for-web` contains the compiled Stoat web client before starting Docker, then initialize configs for the default hostname (or override as needed):
 
 ```bash
 chmod +x ./generate_config.sh
-./generate_config.sh www.stairwaytogray.chat
+./generate_config.sh www.stg.chat
 ```
 
 Create `.env.web` and download `Revolt.toml`, then modify them according to your requirements.
