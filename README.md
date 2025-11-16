@@ -351,6 +351,28 @@ use revolt
 db.invites.insertOne({ _id: "enter_an_invite_code_here" })
 ```
 
+### Packaging `stgts-for-web` as a Docker image
+
+1. Build the Stoat client locally (example using pnpm):
+   ```bash
+   git clone https://github.com/revoltchat/client stgts-client
+   cd stgts-client
+   pnpm install
+   pnpm build
+   ```
+2. Create a Dockerfile next to the compiled assets:
+   ```Dockerfile
+   # Dockerfile.stgts-web
+   FROM nginx:1.27-alpine AS runtime
+   COPY dist/ /usr/share/nginx/html
+   ```
+3. Build and push your image:
+   ```bash
+   docker build -t ghcr.io/<you>/stgts-web:latest -f Dockerfile.stgts-web .
+   docker push ghcr.io/<you>/stgts-web:latest
+   ```
+4. Point the `web` service in `compose.yml` to your tag (or use `image:` + `build:` if you keep the Dockerfile inside this repo).
+
 ## Notices
 
 > [!IMPORTANT]
